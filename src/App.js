@@ -2,8 +2,6 @@ import './App.css';
 import { Routes, Route } from "react-router-dom";
 import { NavBar, Home } from './components';
 import { InputCampuses } from './components/campuses';
-// import api from '../src/api/campuses';
-// import api2 from '../src/api/students';
 import { useEffect, useState } from 'react';
 import ListCampuses from './components/campuses/ListCampuses';
 import axios from 'axios';
@@ -36,6 +34,8 @@ function App() {
     console.log(res);
     setCampuses([...campuses, res.data]);
   };
+
+
   useEffect(() => {
     const getAllCampuses = async () => {
       const allCampuses = await fetchCampuses();
@@ -50,6 +50,7 @@ function App() {
     return res2.data;
   }
 
+
   const addStudentsHandler = async (student) => {
     console.log(student);
     const req2 = {
@@ -61,6 +62,9 @@ function App() {
     setStudents([...students,res2.data]);
   };
 
+
+ 
+
   useEffect(() => {
     const getAllStudents = async () => {
       const allStudents = await fetchStudents();
@@ -69,6 +73,7 @@ function App() {
 
     getAllStudents();
   },[]);
+
 
 
 
@@ -84,8 +89,7 @@ function App() {
           setCampuses={setCampuses}
           addCampusHandler={addCampusHandler}
         />} />
-        <Route exact path="/campuses/:id" element={<CampusCard />} />
-
+        <Route exact path="/campuses/:id" element={<CampusCard campuses={campuses} setCampuses={setCampuses}  />} />
         <Route exact path="/students" element={<ListStudents students={students} />} />
         <Route exact path="/students/add" element={<InputStudents students={students}
           setStudents={setStudents}

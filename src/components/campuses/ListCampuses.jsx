@@ -1,15 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CmpusCard from "./CampusCard";
+import CampusCard from "./CampusCard";
 
 export default function ListCampuses(props) {
     console.log(props);
+    const info = props;
+    console.log(info)
 
-    const renderCampuses = props.campuses.map((campus,id)=> {
-        return(
-            <CmpusCard
+    
+    const renderCampuses = props.campuses.map(campus=> {
+       
+       
+      return(
+            <CampusCard
+              // props={[campus]}
                campus= {campus}    
-               key={id}      
+               key={campus.id}      
             />
         )
     });
