@@ -1,13 +1,9 @@
 import React, { Fragment, useState } from "react";
-// import api from '../src/api/campuses';
 import { Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-
-
 
 
 const InputCampuses = (props) => {
-
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const [newCampus, setNewCampus] = useState({
         id: "",
         name: "",
@@ -20,7 +16,7 @@ const InputCampuses = (props) => {
         event.preventDefault();
         props.addCampusHandler(newCampus)
 
-        return <Navigate to="/campuses/" />
+        setIsSubmitted(true)
     }
 
     const updateCampus = (event) => {
@@ -31,6 +27,9 @@ const InputCampuses = (props) => {
         ))
     }
 
+    if(isSubmitted) {
+        return <Navigate to="/campuses" />
+    }
 
     return (
         <Fragment>
@@ -71,9 +70,7 @@ const InputCampuses = (props) => {
                     value={newCampus.description}
                     onChange={(event) => updateCampus(event)}
                 />
-
-
-
+                
                     <button className="btn btn-primary">Add</button>
             </form>
         </Fragment>

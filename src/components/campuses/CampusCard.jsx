@@ -1,22 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
+import { useState} from "react";
+import { Navigate } from "react-router-dom";
 
 const CampusCard = (props) => {
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const {id, name, imageUrl, address, description } = props.campus || [];
 
+  
   const deleteHandler =() => {
     axios
-      .delete("http://localhost:5000/campuses/1")
+      .delete(`http://localhost:5000/campuses/${id}`)
       .then((response) => {
         console.log(response.status);
+        setIsSubmitted(true)
+        console.log("end")
       })
       .catch((e) => console.log('something wrong'))
+     
   }
 
-
   console.log(id)
+
+  if(isSubmitted){
+    return  <Navigate to="/campuses" />
+  }
 
   return (
     <div className="card-item">
